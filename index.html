@@ -1,19 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zardy de Haan | High-Performance Athletic Modeling</title>
+    <title>Zardy de Haan | Atleet, Stuntman & Artistiek model</title>
+
+    <!-- Comprehensive SEO Meta Tags -->
     <meta name="description"
-        content="Professional freerunner, stuntman, and award-winning model combining physical mastery with artistic aesthetics. Gravity-defying movement for elite brand campaigns.">
+        content="Professioneel freerunner, stuntman en bekroond model: Zardy de Haan combineert fysieke beheersing met artistieke esthetiek voor o.a. stunts, film en commercials.">
+    <meta name="keywords"
+        content="Zardy de Haan, Stuntman, Model, Freerunner, Parkour, Artistiek Model, Acteur, Film stunts">
+    <meta name="author" content="Zardy de Haan">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.zardydehaan.com/">
+
+    <!-- Open Graph (Facebook/LinkedIn) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.zardydehaan.com/">
+    <meta property="og:title" content="Zardy de Haan | Atleet, Stuntman & Artistiek model">
+    <meta property="og:description"
+        content="Professioneel freerunner, stuntman en bekroond model: Zardy de Haan combineert fysieke beheersing met artistieke esthetiek.">
+    <meta property="og:image" content="https://www.zardydehaan.com/public/hero.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.zardydehaan.com/">
+    <meta name="twitter:title" content="Zardy de Haan | Atleet, Stuntman & Artistiek model">
+    <meta name="twitter:description"
+        content="Professioneel freerunner, stuntman en bekroond model: Zardy de Haan combineert fysieke beheersing met artistieke esthetiek.">
+    <meta name="twitter:image" content="https://www.zardydehaan.com/public/hero.jpg">
+
+    <!-- Schema.org JSON-LD Structured Data for Better Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Zardy de Haan",
+      "url": "https://www.zardydehaan.com",
+      "image": "https://www.zardydehaan.com/public/hero.jpg",
+      "jobTitle": "Stuntman & Model",
+      "sameAs": [
+        "https://www.instagram.com/zardydehaan/?hl=en",
+        "https://www.imdb.com/name/nm7309625/?ref_=ext_shr_lnk"
+      ],
+      "knowsAbout": ["Stunts", "Modeling", "Freerunning", "Parkour"]
+    }
+    </script>
+
+    <meta name="theme-color" content="#111111">
+
     <!-- Google Fonts: Anton (Headings), Space Mono (Body), Inter (UI) for Valiente Aesthetic -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
         rel="stylesheet">
-    <!-- Main CSS -->
+
+    <!-- Preload critical Main CSS -->
+    <link rel="preload" href="style.css" as="style">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -430,9 +475,9 @@
     </footer>
 
     <!-- Lenis Smooth Scroll -->
-    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js" defer></script>
     <!-- Main JS -->
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 
 </html>
