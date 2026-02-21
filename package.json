@@ -1,0 +1,8 @@
+{
+    "name": "zardydehaan-portfolio",
+    "version": "1.0.0",
+    "description": "Zardy de Haan Professional Portfolio",
+    "scripts": {
+        "build": "mkdir -p dist && cp -r public index.html en.html style.css script.js dist/ 2>/dev/null || true"
+    }
+}
