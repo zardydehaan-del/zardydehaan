@@ -1007,6 +1007,11 @@ footer {
    RESPONSIVE DESIGN (MOBILE FIRST MENTALITY ENFORCEMENT)
    ========================================================================= */
 @media (max-width: 900px) {
+    .hero-bg {
+        background-attachment: scroll;
+        /* Hotfix for missing hero images on iOS devices */
+    }
+
     .section-padding {
         padding: 4rem 0;
     }
@@ -1063,13 +1068,19 @@ footer {
     @keyframes mobilePopUp {
         0% {
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(60px) scale(0.95);
+        }
+
+        70% {
+            opacity: 1;
+            transform: translateY(-25px) scale(1.02);
         }
 
         100% {
             opacity: 1;
-            transform: translateY(-15px);
-            /* Extra pop up over the image */
+            transform: translateY(-15px)
+                /* Set extra pop up over the image */
+                scale(1);
         }
     }
 
@@ -1090,6 +1101,11 @@ footer {
     .imdb-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
+    }
+
+    .imdb-card {
+        min-width: 200px;
+        max-width: 240px;
     }
 
     .cta-group {
