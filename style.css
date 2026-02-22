@@ -1028,6 +1028,11 @@ footer {
         /* Hotfix for missing hero images on iOS devices */
     }
 
+    .hero-lumos-text {
+        top: 15% !important;
+        font-size: 24vw !important;
+    }
+
     .hero-overlay {
         background: linear-gradient(to top, var(--bg-color) 0%, rgba(203, 203, 196, 0.7) 30%, transparent 100%);
     }

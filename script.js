@@ -50,8 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (bookingForm) {
         bookingForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            const form = e.target;
 
-            const submitBtn = bookingForm.querySelector('.btn-submit');
+            const submitBtn = form.querySelector('.btn-submit');
             const originalText = submitBtn.innerText;
             const isEnglish = document.documentElement.lang === 'en';
 
@@ -62,9 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (formStatus) formStatus.style.display = 'none';
 
             try {
-                const response = await fetch(bookingForm.action, {
-                    method: 'POST',
-                    body: new FormData(bookingForm),
+                const response = await fetch(form.action, {
+                    method: form.method || 'POST',
+                    body: new FormData(form),
                     headers: {
                         'Accept': 'application/json'
                     }
@@ -83,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
 
                     // Reset form
-                    bookingForm.reset();
+                    form.reset();
 
                     // Revert button after 5 seconds
                     setTimeout(() => {
@@ -96,22 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     throw new Error("Formspree response error");
                 }
             } catch (error) {
-                // Error State
-                submitBtn.innerText = isEnglish ? 'SEND ERROR' : 'FOUT BIJ VERZENDEN';
-                submitBtn.style.opacity = '1';
-
-                if (formStatus) {
-                    formStatus.innerText = isEnglish ? "Something went wrong. Please try again or send a direct email." : "Oeps! Er ging iets mis. Probeer het opnieuw of stuur direct een mail.";
-                    formStatus.style.color = "var(--accent)";
-                    formStatus.style.display = 'block';
-                }
-
-                setTimeout(() => {
-                    submitBtn.innerText = originalText;
-                    submitBtn.style.background = 'var(--accent)';
-                    submitBtn.style.color = '#fff';
-                    submitBtn.disabled = false;
-                }, 5000);
+                // Error State - Fallback to standard HTML form submission if AJAX fails
+                // This bypasses iOS fetch issues, adblockers blocking formspree AJAX, or unactivated forms
+                form.submit();
             }
         });
     }
