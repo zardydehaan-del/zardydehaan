@@ -201,14 +201,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let isDragging = false;
 
-        scrollContainer.addEventListener('pointerenter', () => isHovered = true);
-        scrollContainer.addEventListener('pointerleave', () => {
-            isHovered = false;
-            isDown = false;
+        // Touch interaction for mobile (pause on touch, allow native swipe)
+        scrollContainer.addEventListener('touchstart', () => isHovered = true, { passive: true });
+        scrollContainer.addEventListener('touchend', () => { setTimeout(() => isHovered = false, 1000) });
+        scrollContainer.addEventListener('touchcancel', () => { setTimeout(() => isHovered = false, 1000) });
+
+        // Mouse interaction for desktop (drag & hover)
+        scrollContainer.addEventListener('pointerenter', (e) => {
+            if (e.pointerType === 'mouse') isHovered = true;
+        });
+        scrollContainer.addEventListener('pointerleave', (e) => {
+            if (e.pointerType === 'mouse') {
+                isHovered = false;
+                isDown = false;
+            }
         });
 
         // Mouse Drag to Scroll Logic
         scrollContainer.addEventListener('pointerdown', (e) => {
+            if (e.pointerType !== 'mouse') return;
             isHovered = true;
             isDown = true;
             isDragging = false;
@@ -217,12 +228,13 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollContainer.style.scrollBehavior = 'auto'; // Prevent smooth scroll bugs during drag
         });
 
-        scrollContainer.addEventListener('pointerup', () => {
+        scrollContainer.addEventListener('pointerup', (e) => {
+            if (e.pointerType !== 'mouse') return;
             isDown = false;
         });
 
         scrollContainer.addEventListener('pointermove', (e) => {
-            if (!isDown) return;
+            if (e.pointerType !== 'mouse' || !isDown) return;
             e.preventDefault();
             isDragging = true; // Drag intent confirmed
             const x = e.pageX - scrollContainer.offsetLeft;
@@ -230,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollContainer.scrollLeft = scrollLeftPos - walk;
         });
 
-        // Prevent clicking links if we were just dragging
+        // Prevent clicking links if we were just dragging with a mouse
         const links = scrollContainer.querySelectorAll('a');
         links.forEach(link => {
             link.addEventListener('click', (e) => {
