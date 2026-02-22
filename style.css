@@ -517,11 +517,24 @@ p {
     display: flex;
     align-items: center;
     width: max-content;
-    animation: marquee 40s linear infinite;
+    padding: 0 2rem;
 }
 
-.marquee-content:hover {
-    animation-play-state: paused;
+/* Base state for containers */
+.scroll-interactive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
+}
+
+.scroll-interactive:active {
+    cursor: grabbing;
+}
+
+.scroll-interactive::-webkit-scrollbar {
+    display: none;
 }
 
 .badge {
@@ -711,6 +724,8 @@ p {
     border-radius: 4px;
     text-decoration: none;
     display: block;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 .imdb-card img {
@@ -718,6 +733,7 @@ p {
     height: 100%;
     object-fit: cover;
     transition: transform var(--transition);
+    pointer-events: none;
 }
 
 .imdb-card:hover img {
@@ -1055,8 +1071,7 @@ footer {
     .services-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
-        margin-top: -6rem;
-        /* Make it significantly overlap the image to "pop out" */
+        margin-top: 2rem;
         padding: 0 1rem;
     }
 
@@ -1072,19 +1087,17 @@ footer {
     @keyframes mobilePopUp {
         0% {
             opacity: 0;
-            transform: translateY(60px) scale(0.95);
+            transform: translateY(40px) scale(0.95);
         }
 
         70% {
             opacity: 1;
-            transform: translateY(-25px) scale(1.02);
+            transform: translateY(-5px) scale(1.02);
         }
 
         100% {
             opacity: 1;
-            transform: translateY(-15px)
-                /* Set extra pop up over the image */
-                scale(1);
+            transform: translateY(0) scale(1);
         }
     }
 

@@ -179,4 +179,91 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    /**
+     * INTERACTIVE INFINITE SCROLLING MARQUEES (Drag & Hover)
+     */
+    const interactives = document.querySelectorAll('.scroll-interactive');
+    interactives.forEach(scrollContainer => {
+        const track = scrollContainer.querySelector('.imdb-scroll-track, .marquee-content');
+        if (!track) return;
+
+        // Clone the track's content to ensure a seamless infinite loop
+        track.innerHTML += track.innerHTML;
+
+        let isHovered = false;
+        let accumulator = 0;
+        const speed = 0.75; // Adjust the sliding speed here
+
+        // Dragging state variables
+        let isDown = false;
+        let startX;
+        let scrollLeftPos;
+
+        let isDragging = false;
+
+        scrollContainer.addEventListener('pointerenter', () => isHovered = true);
+        scrollContainer.addEventListener('pointerleave', () => {
+            isHovered = false;
+            isDown = false;
+        });
+
+        // Mouse Drag to Scroll Logic
+        scrollContainer.addEventListener('pointerdown', (e) => {
+            isHovered = true;
+            isDown = true;
+            isDragging = false;
+            startX = e.pageX - scrollContainer.offsetLeft;
+            scrollLeftPos = scrollContainer.scrollLeft;
+            scrollContainer.style.scrollBehavior = 'auto'; // Prevent smooth scroll bugs during drag
+        });
+
+        scrollContainer.addEventListener('pointerup', () => {
+            isDown = false;
+        });
+
+        scrollContainer.addEventListener('pointermove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            isDragging = true; // Drag intent confirmed
+            const x = e.pageX - scrollContainer.offsetLeft;
+            const walk = (x - startX) * 2; // Scroll-fast multiplier
+            scrollContainer.scrollLeft = scrollLeftPos - walk;
+        });
+
+        // Prevent clicking links if we were just dragging
+        const links = scrollContainer.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (isDragging) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            });
+        });
+
+        function step() {
+            if (!isHovered && !isDown) {
+                accumulator += speed;
+                if (accumulator >= 1) {
+                    const add = Math.floor(accumulator);
+                    scrollContainer.scrollLeft += add;
+                    accumulator -= add;
+                }
+            }
+
+            // Seamless looping logic
+            const maxScroll = scrollContainer.scrollWidth / 2;
+            if (scrollContainer.scrollLeft >= maxScroll) {
+                scrollContainer.scrollLeft -= maxScroll;
+            } else if (scrollContainer.scrollLeft <= 0 && (isHovered || isDown)) {
+                // Allow reverse manual scroll looping
+                scrollContainer.scrollLeft += maxScroll - 1;
+            }
+
+            requestAnimationFrame(step);
+        }
+
+        requestAnimationFrame(step);
+    });
+
 });
