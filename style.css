@@ -1029,8 +1029,9 @@ footer {
     }
 
     .hero-lumos-text {
-        top: 15% !important;
-        font-size: 24vw !important;
+        top: 65% !important;
+        font-size: 18vw !important;
+        letter-spacing: 0 !important;
     }
 
     .hero-overlay {
